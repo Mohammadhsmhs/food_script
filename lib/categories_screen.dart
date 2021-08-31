@@ -3,6 +3,7 @@ import 'package:food_script/category_item.dart';
 import 'package:food_script/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
+  static final route = "/";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +13,7 @@ class CategoriesScreen extends StatelessWidget {
       body: GridView(
         padding: EdgeInsets.all(20),
         children: DUMMY_CATEGORIES
-            .map((e) => CategoryItem(e.title, e.color))
+            .map((e) => CategoryItem(e.id, e.title, e.color))
             .toList(),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
