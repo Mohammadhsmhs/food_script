@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_script/category_item.dart';
-import 'package:food_script/dummy_data.dart';
+import 'package:food_script/widgets/category_item.dart';
+import 'package:food_script/data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
   static final route = "/";
