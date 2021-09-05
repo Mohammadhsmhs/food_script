@@ -3,10 +3,14 @@ import 'package:food_script/data/dummy_data.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   static final rout = "./meal-details";
+  final Function(String) toggleFav;
+  final Function(String) checkFav;
+
+  MealDetailsScreen(this.toggleFav, this.checkFav);
 
   @override
   Widget build(BuildContext context) {
-    final id = ModalRoute.of(context)!.settings.arguments;
+    final id = ModalRoute.of(context)!.settings.arguments as String;
     final meal = DUMMY_MEALS.firstWhere((element) => element.id == id);
 
     Widget _buildTilte(BuildContext context, String title) {
@@ -79,6 +83,10 @@ class MealDetailsScreen extends StatelessWidget {
             ))
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => toggleFav(id),
+        child: checkFav(id) ? Icon(Icons.star) : Icon(Icons.star_border),
       ),
     );
   }
