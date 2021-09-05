@@ -26,6 +26,25 @@ class _MyAppState extends State<MyApp> {
     'vegeterian': false,
   };
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoritMeals = [];
+
+  void _toggleFavorit(String mealID) {
+    final existingIndex = _favoritMeals.indexWhere((meal) => mealID == meal.id);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoritMeals.removeAt(existingIndex);
+      });
+    } else
+      setState(() {
+        _favoritMeals
+            .add(DUMMY_MEALS.firstWhere((element) => element.id == mealID));
+      });
+  }
+
+  bool _checkFavorit(String mealId) {
+    return _favoritMeals.any((element) => element.id == mealId);
+  }
+
   void _setFilters(Map<String, bool> selectedFiltres) {
     setState(() {
       _filters = selectedFiltres;
@@ -64,10 +83,11 @@ class _MyAppState extends State<MyApp> {
       ),
       // home: CategoriesScreen(),
       routes: {
-        TabsScreen.rout: (ctx) => TabsScreen(),
+        TabsScreen.rout: (ctx) => TabsScreen(_favoritMeals),
         CategoryMealsScreen.route: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailsScreen.rout: (ctx) => MealDetailsScreen(),
+        MealDetailsScreen.rout: (ctx) =>
+            MealDetailsScreen(_toggleFavorit, _checkFavorit),
         FiltersScreen.rout: (ctx) => FiltersScreen(_setFilters, _filters),
       },
     );
